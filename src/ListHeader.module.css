@@ -1,0 +1,10 @@
+.container {
+    text-align: center;
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin: 0 0 2.5rem;
+}
+.container--isitalic {
+    font-style: italic;
+}
