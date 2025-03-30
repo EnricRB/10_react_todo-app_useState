@@ -1,59 +1,41 @@
-import "./App.css";
-import { Header } from "./Header";
-import { Subheader } from "./Subheader";
-import { ListHeader } from "./ListHeader";
-import { ItemsList } from "./ItemsList";
-import { ListContainer } from "./ListContainer";
+import './App.css';
+import { Header } from './Header';
+import { Subheader } from './Subheader';
+import { ListHeader } from './ListHeader';
+import { ItemsList } from './ItemsList';
+import { ListContainer } from './ListContainer';
+import { TaskForm } from './TaskForm';
+import { useState, useEffect } from 'react';
+
 const App = () => {
-  const itemsList = [
-    {
-      id: 1,
-      title: "Completar el proyecto",
-      description: "Terminar la aplicación de React",
-      status: "in progress"
-    },
-    {
-      id: 2,
-      title: "Revisar código",
-      description: "Hacer code review del proyecto",
-      status: "pending"
-    },
-    {
-      id: 3,
-      title: "Actualizar documentación",
-      description: "Documentar los cambios realizados",
-      status: "done"
-    },
-    {
-      id: 4,
-      title: "Completar el proyecto",
-      description: "Terminar la aplicación de React",
-      status: "in progress"
-    },
-    {
-      id: 5,
-      title: "Revisar código",
-      description: "Hacer code review del proyecto",
-      status: "pending"
-    },
-    {
-      id: 6,
-      title: "Actualizar documentación",
-      description: "Documentar los cambios realizados",
-      status: "done"
-    }
-  ]
+  const [itemsList, setItemsList] = useState(() => {
+    const savedTasks = localStorage.getItem('tasks');
+    return savedTasks ? JSON.parse(savedTasks) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(itemsList));
+  }, [itemsList]);
+
+  const handleAddTask = (newTask) => {
+    const taskWithId = {
+      ...newTask,
+      id: Date.now(), // Usando timestamp como ID único
+    };
+    setItemsList((prev) => [...prev, taskWithId]);
+  };
 
   return (
     <div className="app">
       <Header />
       <Subheader subtitle="Todo List Manager" />
+      <TaskForm onSubmit={handleAddTask} />
       <ListContainer>
         <ListHeader content="Todo List" />
         <ItemsList itemsList={itemsList} />
       </ListContainer>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

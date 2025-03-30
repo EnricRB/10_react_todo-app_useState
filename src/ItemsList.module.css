@@ -1,11 +1,25 @@
 .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    list-style: none;
-    padding: 2rem;
-    gap: 2.5rem;
-    place-items: center;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  list-style: none;
+  padding: 2rem;
+  gap: 3.5rem;
+  width: 100%;
+  max-width: 1200px;
+  margin-right: 10px;
+  place-content: center;
+  justify-items: center;
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
 }
